@@ -15,7 +15,7 @@ public class CarrMadanController {
 
     @Autowired
     CarrMadanOptionPricingFFTService carrMadanOptionPricingService;
-    @RequestMapping(value = "/v1/option/simulation", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/v1/option/carrmadan/simulation", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public OutProtocol priceSimulation(@RequestBody final EntryProtocol entryProtocol){
         double S = 100.0; // underlying asset price
         double K = 100.0; // strike price
