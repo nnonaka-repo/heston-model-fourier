@@ -5,8 +5,8 @@ import org.apache.commons.math3.special.Erf;
 import org.apache.commons.math3.transform.DftNormalization;
 import org.apache.commons.math3.transform.FastFourierTransformer;
 import org.apache.commons.math3.transform.TransformType;
-import org.apache.commons.math3.distribution.NormalDistribution;
 
+import org.apache.commons.math3.util.FastMath;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -57,21 +57,15 @@ public class GarmanKohlhagenOptionFFTPricing {
         return  String.format("callPrice : %f", callPrice);
     }
 
-    /*public Complex characteristicFunction(Complex omega, double spotPrice, double riskFreeRate, double volatility, double timeToExpiration) {
-        Complex iOmega = omega.multiply(-1);
-        Complex d1 = iOmega.add(0.5 * volatility * volatility * timeToExpiration).sqrt().add(iOmega.multiply(volatility * Math.sqrt(timeToExpiration)));
-        Complex d2 = iOmega.subtract(0.5 * volatility * volatility * timeToExpiration).sqrt().subtract(iOmega.multiply(volatility * Math.sqrt(timeToExpiration)));
-        Complex numerator = d1.exp().subtract(1).multiply(iOmega.multiply(2)).add(1).multiply(spotPrice * Math.exp(-riskFreeRate * timeToExpiration));
-        Complex denominator = iOmega.multiply(iOmega.add(1)).multiply(d2).multiply(d2.exp());
-        return numerator.divide(denominator);
-    }*/
     public static Complex characteristicFunction(Complex omega, double S, double r, double sigma, double T) {
-        Complex i = Complex.I;
-        Complex mu = i.multiply(r - 0.5 * sigma * sigma);
-        Complex sigmaOmega = i.multiply(sigma).multiply(omega);
-        Complex exponent = mu.multiply(T).add(sigmaOmega.multiply(Math.sqrt(T))).exp();
-        return exponent.multiply(S);
+        Complex iOmega = omega.multiply(-1);
+        Complex d1 = iOmega.add(0.5 * sigma * Math.sqrt(T)).divide(sigma * Math.sqrt(T));
+        Complex d2 = d1.subtract(sigma * Math.sqrt(T));
+        Complex numerator = d1.multiply(FastMath.exp((r - 0.5 * sigma * sigma) * T)).multiply(S);
+        Complex denominator = new Complex(1.0, 0).add(iOmega).multiply(iOmega).subtract(d2.multiply(d2));
+        return numerator.divide(denominator);
     }
+
     public double normalCDF(double x) {
         return 0.5 * (1 + Erf.erf(x / Math.sqrt(2)));
     }
