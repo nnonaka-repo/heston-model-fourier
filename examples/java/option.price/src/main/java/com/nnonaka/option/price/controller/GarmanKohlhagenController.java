@@ -40,7 +40,7 @@ public class GarmanKohlhagenController {
         double brazilRiskFreeRate = 0.116; // Risk-free interest rate in Brazil
         double usaRiskFreeRate = 0.0525; // Risk-free interest rate in the USA
         double volatility = 0.15; // Volatility of the currency pair
-        double timeToExpiration = 1.0; // Time to expiration in years
+        double timeToExpiration = 0.083; // Time to expiration in years
 
         String callPrice = garmanKohlhagenOptionPricing.europeanCallOptionPrice(spotPrice, strikePrice, brazilRiskFreeRate, usaRiskFreeRate, volatility, timeToExpiration);
         OutProtocol outProtocol= new OutProtocol();
@@ -55,7 +55,7 @@ public class GarmanKohlhagenController {
         double strikePrice = 5.20; // Strike price
         double riskFreeRate = 0.05; // Risk-free interest rate
         double volatility = 0.15; // Volatility of the currency pair
-        double timeToExpiration = 1.0; // Time to expiration in years
+        double timeToExpiration = 0.083; // Time to expiration in years
 
         String callPrice = garmanKohlhagenOptionFFTPricing.europeanCallOptionPrice(spotPrice, strikePrice, riskFreeRate, volatility, timeToExpiration);
         OutProtocol outProtocol= new OutProtocol();
