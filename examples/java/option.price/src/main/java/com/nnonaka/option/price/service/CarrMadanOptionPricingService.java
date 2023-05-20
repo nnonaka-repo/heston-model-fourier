@@ -55,8 +55,8 @@ public class CarrMadanOptionPricingService {
     // Perform the Fourier integral
     IterativeLegendreGaussIntegrator integrator = new IterativeLegendreGaussIntegrator(
             intervals,
-            1e-2,
-            1e-2);
+            1e-10,
+            1e-10);
     double integral;
     try {
       integral = integrator.integrate(maxEvaluations, integrand, lowerBound, upperBound);
