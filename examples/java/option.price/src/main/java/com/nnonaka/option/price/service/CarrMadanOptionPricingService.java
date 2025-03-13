@@ -40,7 +40,6 @@ public class CarrMadanOptionPricingService {
     int maxEvaluations = intervals * 10; // Adjust based on the number of intervals
 
 
-    //int evals = (int) (lowerBound + (upperBound - lowerBound) / intervals);
     // Define the Fourier integrand
     UnivariateFunction integrand = new UnivariateFunction() {
       public double value(double omega) {

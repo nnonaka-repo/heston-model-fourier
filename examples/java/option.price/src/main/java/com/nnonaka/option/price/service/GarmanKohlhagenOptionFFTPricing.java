@@ -19,7 +19,7 @@ public class GarmanKohlhagenOptionFFTPricing {
 
         // Compute the discretization points using the FFT frequencies
         for (int i = 0; i < N; i++) {
-            x[i] = i * delta - (N / 2) * delta;
+            x[i] = i * delta - ((double) N / 2) * delta;
         }
 
         // Compute the characteristic function values at the discretization points
@@ -36,7 +36,7 @@ public class GarmanKohlhagenOptionFFTPricing {
 
         // Compute the option price using the FFT result
         double callPrice = 0.0;
-        double aux = 0.0;
+        double aux;
         for (int i = 0; i < N; i++) {
             Complex omega = new Complex(0, x[i]);
             Complex dampedChar = omega.multiply(-riskFreeRate * x[i] / 2.0).exp().multiply(fft[i]);
